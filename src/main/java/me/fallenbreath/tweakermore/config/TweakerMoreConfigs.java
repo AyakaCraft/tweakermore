@@ -46,6 +46,7 @@ import me.fallenbreath.tweakermore.impl.features.pistorder.PistorderRenderer;
 import me.fallenbreath.tweakermore.impl.features.refreshInventory.InventoryRefresher;
 import me.fallenbreath.tweakermore.impl.features.schematicProPlace.ProPlaceImpl;
 import me.fallenbreath.tweakermore.impl.features.spectatorTeleportCommand.SpectatorTeleportCommand;
+import me.fallenbreath.tweakermore.impl.mc_tweaks.englishSearch.EnglishSearchHelper;
 import me.fallenbreath.tweakermore.impl.mc_tweaks.flawlessFrames.FlawlessFramesHandler;
 import me.fallenbreath.tweakermore.impl.mc_tweaks.lowerExplosionSoundLimitPerTick.LowerExplosionSoundLimitPerTickHelper;
 import me.fallenbreath.tweakermore.impl.mc_tweaks.movingPistonBlockSelectable.MovingPistonBlockSelectableHelper;
@@ -536,6 +537,9 @@ public class TweakerMoreConfigs
 
 	@Config(type = Config.Type.DISABLE, category = Config.Category.MC_TWEAKS)
 	public static final TweakerMoreConfigBooleanHotkeyed DISABLE_VIGNETTE_DARKNESS = newConfigBooleanHotkeyed("disableVignetteDarkness");
+
+	@Config(type = Config.Type.GENERIC, category = Config.Category.MC_TWEAKS)
+	public static final TweakerMoreConfigBoolean ENGLISH_SEARCH = newConfigBoolean("englishSearch", false);
 
 	@Config(type = Config.Type.GENERIC, category = Config.Category.MC_TWEAKS)
 	public static final TweakerMoreConfigDouble F3_B_ENTITY_FACING_VECTOR_LENGTH = newConfigDouble("f3BEntityFacingVectorLength", 2.0, 0, 16);
@@ -1029,6 +1033,7 @@ public class TweakerMoreConfigs
 		OF_WITCH_HAT.setValueChangeCallback(OptifinePlayerExtraModelOverrider::onConfigValueChanged);
 		PARTICLE_LIMIT.setValueChangeCallback(ParticleLimitHelper::onConfigValueChanged);
 		FLAWLESS_FRAMES.setValueChangeCallback(FlawlessFramesHandler::onConfigValueChanged);
+		ENGLISH_SEARCH.setValueChangeCallback(EnglishSearchHelper::onConfigValueChanged);
 
 		// debugs
 		TWEAKERMORE_DEBUG_MODE.setValueChangeCallback(redrawConfigGui);
