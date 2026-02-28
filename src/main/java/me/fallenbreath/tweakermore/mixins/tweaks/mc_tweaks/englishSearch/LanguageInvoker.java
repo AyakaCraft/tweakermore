@@ -8,7 +8,7 @@ import net.minecraft.locale.Language;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.16"))
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.21"))
 @Mixin(DummyClass.class)
 public interface LanguageInvoker {
 }

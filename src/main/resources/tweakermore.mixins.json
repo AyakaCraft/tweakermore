@@ -129,6 +129,7 @@
     "tweaks.mc_tweaks.disableVignetteDarkness.InGameHudMixin",
     "tweaks.mc_tweaks.englishSearch.LanguageInvoker",
     "tweaks.mc_tweaks.englishSearch.SessionSearchTreesMixin",
+    "tweaks.mc_tweaks.englishSearch.TranslatableContentsMixin",
     "tweaks.mc_tweaks.f3BEntityFacingVectorLength.DebugHitboxCommandRendererMixin",
     "tweaks.mc_tweaks.f3BEntityFacingVectorLength.EntityRenderDispatcherMixin",
     "tweaks.mc_tweaks.f3GSimplify.ChunkBorderDebugRendererMixin",

@@ -612,6 +612,11 @@ tweakermore:
         i.e. the darkness effect on the screen corner that accumulates slowly
         when the light level at player's eyes is not the maximum light level
       pretty_name: Disable Vignette Darkness
+    englishSearch:
+      .: englishSearch
+      comment: |-
+        You can use English names of items, enchantments, potion effects etc. to search crafting recipes and items (in creative inventory tab).
+        This feature is useless for you if you can see this comment (since your language is en-us).
     f3BEntityFacingVectorLength:
       .: f3BEntityFacingVectorLength
       comment: |-
