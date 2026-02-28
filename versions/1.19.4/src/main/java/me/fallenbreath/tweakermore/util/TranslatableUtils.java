@@ -20,14 +20,28 @@
 
 package me.fallenbreath.tweakermore.util;
 
+import me.fallenbreath.tweakermore.config.TweakerMoreConfigs;
+import me.fallenbreath.tweakermore.mixins.tweaks.mc_tweaks.englishSearch.LanguageInvoker;
+import net.minecraft.ChatFormatting;
 import net.minecraft.locale.Language;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class TranslatableUtils {
+    private static final Language language = LanguageInvoker.invokeCreate();
+
+    public static Stream<String> getString(Stream<Component> components){
+        if (TweakerMoreConfigs.ENGLISH_SEARCH.getBooleanValue())
+            return components.flatMap(text -> Stream.of(getFormattedTextAsString(text, language), text.getString()))
+                .map(str -> ChatFormatting.stripFormatting(str).trim())
+                .filter(string -> !string.isEmpty());
+        else return components.map((component) -> ChatFormatting.stripFormatting(component.getString()).trim()).filter((string) -> !string.isEmpty());
+    }
 
     public static String getFormattedTextAsString(FormattedText formattedText, Language language) {
         StringBuilder sb = new StringBuilder();

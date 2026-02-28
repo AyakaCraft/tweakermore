@@ -57,7 +57,7 @@ public abstract class TranslatableContentsMixin {
     public abstract void invokeDecomposeTemplate(String formatTemplate, Consumer<FormattedText> consumer);
 
     @WrapMethod(method = "visit(Lnet/minecraft/network/chat/FormattedText$ContentConsumer;)Ljava/util/Optional;")
-    private <T> Optional<T> visitContentConsumer(FormattedText.ContentConsumer<T> contentConsumer, Operation<Optional<T>> original) {
+    private <T> Optional<T> visit(FormattedText.ContentConsumer<T> contentConsumer, Operation<Optional<T>> original) {
         if (contentConsumer instanceof TranslatableUtils.ContentConsumerWithLanguage<T> withLanguage) {
             Language language = withLanguage.language;
             if (language != this.decomposedWith) {

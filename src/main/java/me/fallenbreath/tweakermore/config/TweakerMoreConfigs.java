@@ -539,7 +539,7 @@ public class TweakerMoreConfigs
 	public static final TweakerMoreConfigBooleanHotkeyed DISABLE_VIGNETTE_DARKNESS = newConfigBooleanHotkeyed("disableVignetteDarkness");
 
 	@Config(type = Config.Type.GENERIC, restriction = @Restriction(require = {
-			@Condition(value = ModIds.minecraft, versionPredicates = ">=1.21")
+			@Condition(value = ModIds.minecraft, versionPredicates = ">=1.19")
 	}), category = Config.Category.MC_TWEAKS)
 	public static final TweakerMoreConfigBoolean ENGLISH_SEARCH = newConfigBoolean("englishSearch", false);
 

@@ -22,34 +22,22 @@ package me.fallenbreath.tweakermore.mixins.tweaks.mc_tweaks.englishSearch;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import me.fallenbreath.tweakermore.TweakerMoreMod;
 import me.fallenbreath.tweakermore.config.TweakerMoreConfigs;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.multiplayer.SessionSearchTrees;
-import net.minecraft.locale.Language;
-import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import me.fallenbreath.tweakermore.util.TranslatableUtils;
-
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 
 import java.util.stream.Stream;
 
 @Mixin(SessionSearchTrees.class)
 public abstract class SessionSearchTreesMixin {
-    @Unique
-    private static final Language language = LanguageInvoker.invokeCreate();
-
     @WrapMethod(method = "getTooltipLines")
     private static Stream<String> getTooltipLines(Stream<ItemStack> stacks, Item.TooltipContext context, TooltipFlag type, Operation<Stream<String>> original) {
         if(TweakerMoreConfigs.ENGLISH_SEARCH.getBooleanValue()) {
-                return stacks.flatMap(stack -> stack.getTooltipLines(context, null, type).stream())
-                        .flatMap(text -> Stream.of(TranslatableUtils.getFormattedTextAsString(text, language), text.getString()))
-                        .map(str -> ChatFormatting.stripFormatting(str).trim())
-                        .filter(string -> !string.isEmpty());
+            return TranslatableUtils.getString(stacks.flatMap(stack -> stack.getTooltipLines(context, null, type).stream()));
         } else {
             return original.call(stacks, context, type);
         }
