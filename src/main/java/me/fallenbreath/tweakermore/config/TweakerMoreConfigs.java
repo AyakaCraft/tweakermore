@@ -60,7 +60,6 @@ import me.fallenbreath.tweakermore.impl.mod_tweaks.serverDataSyncer.ServerDataSy
 import me.fallenbreath.tweakermore.impl.porting.lmCustomSchematicBaseDirectoryPorting.LitematicaCustomSchematicBaseDirectoryPorting;
 import me.fallenbreath.tweakermore.impl.setting.debug.TweakerMoreDebugHelper;
 import me.fallenbreath.tweakermore.util.EnvironmentUtils;
-import me.fallenbreath.tweakermore.util.FabricUtils;
 import me.fallenbreath.tweakermore.util.ModIds;
 import me.fallenbreath.tweakermore.util.RegistryUtils;
 import me.fallenbreath.tweakermore.util.doc.DocumentGenerator;
@@ -972,6 +971,16 @@ public class TweakerMoreConfigs
 			category = Config.Category.PORTING
 	)
 	public static final TweakerMoreConfigBooleanHotkeyed TKR_DISABLE_NAUSEA_EFFECT_PORTING = newConfigBooleanHotkeyed("tkrDisableNauseaEffectPorting");
+
+	@Config(
+			type = Config.Type.GENERIC,
+			restriction = @Restriction(require = {
+					@Condition(ModIds.tweakeroo),
+					@Condition(value = ModIds.minecraft, versionPredicates = "<1.21")
+			}),
+			category = Config.Category.PORTING
+	)
+	public static final TweakerMoreConfigBoolean HAND_RESTOCK_FIX_PORTING = newConfigBoolean("handRestockFixPorting", false);
 
 	//////////////////////////
 	//  TweakerMore Setting //

@@ -1052,6 +1052,11 @@ tweakermore:
 
     # ================================ Porting ================================
 
+    handRestockFixPorting:
+      .: Tweakeroo自动补货修复-移植
+      comment: |-
+        从 Tweakeroo 1.21+ 移植了水桶自动补货的修复，以及不可堆叠食物、不死图腾的补货功能
+        参见 https://github.com/sakura-ryoko/tweakeroo 的 pr #12 ~ #15
     isScrollStacksFallbackFixPorting:
       .: ItemScroller移动整组物品备用操作修复-移植
       comment: |-

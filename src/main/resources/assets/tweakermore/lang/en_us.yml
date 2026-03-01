@@ -1059,6 +1059,12 @@ tweakermore:
 
     # ================================ Porting ================================
 
+    handRestockFixPorting:
+      .: handRestockFixPorting
+      comment: |-
+        Backport fix for water buckets hand restock issue and 
+        hand restock for totem and unstackable foods from Tweakeroo mc1.21+
+        See https://github.com/sakura-ryoko/tweakeroo pr #12 ~ #15
     isScrollStacksFallbackFixPorting:
       .: isScrollStacksFallbackFixPorting
       comment: |-
