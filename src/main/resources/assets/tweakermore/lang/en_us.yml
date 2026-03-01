@@ -922,6 +922,16 @@ tweakermore:
     handRestockBlackList:
       .: handRestockBlackList
       comment: The items that will NOT trigger tweakHandRestock
+    handRestockForceSwap:
+      .: handRestockForceSwap
+      comment: |-
+        Originally, if the restocked item was also in the hotbar, it would directly switch to that item's slot. 
+        After enabling this feature, it'll always swap item to the current slot, keeping the selected slot unchanged.
+    handRestockReverseOrder:
+      .: handRestockReverseOrder
+      comment: |-
+        The order of searching for items during hand restock will be reversed, 
+        prioritizing replenishment from the inventory (rather than other slots in the hotbar)
     eprHideOnDebugHud:
       .: EPR-HideOnDebugHud
       comment: Hide extra player renderer rendering when debug hud (the F3 thing) is enabled

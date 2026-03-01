@@ -919,6 +919,12 @@ tweakermore:
     handRestockBlackList:
       .: 自动补货黑名单
       comment: 不会触发tweakHandRestock的物品
+    handRestockForceSwap:
+      .: 自动补货强制交换物品
+      comment: 本来如果补货的物品也在快捷栏的话会直接切槽到那个物品，启用后无论如何都会切换物品，使得所选槽位不变
+    handRestockReverseOrder:
+      .: 自动补货反序
+      comment: 自动补货时搜索物品的顺序会反过来，这样会优先从背包补货（而不是快捷栏的其他槽位）
     eprHideOnDebugHud:
       .: 额外玩家渲染-隐藏于调试界面
       comment: 在调试界面开启（那个按 F3 显示的东西）时，隐藏额外玩家渲染的渲染

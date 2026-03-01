@@ -210,6 +210,8 @@
     "tweaks.mod_tweaks.eCraftItemScrollerCompact.CraftingHandlerMixin",
     "tweaks.mod_tweaks.eprHideOnDebugHud.PlayerHUDRenderer_v1Mixin",
     "tweaks.mod_tweaks.eprHideOnDebugHud.PlayerHUDRenderer_v2Mixin",
+    "tweaks.mod_tweaks.handRestockForceSwap.InventoryUtilsMixin",
+    "tweaks.mod_tweaks.handRestockReverseOrder.InventoryUtilsMixin",
     "tweaks.mod_tweaks.handRestoreRestriction.InventoryUtilsMixin",
     "tweaks.mod_tweaks.handRestoreRestriction.PlacementTweaksMixin",
     "tweaks.mod_tweaks.lmAutoRefreshMaterialList.SchematicWorldRefresherMixin",

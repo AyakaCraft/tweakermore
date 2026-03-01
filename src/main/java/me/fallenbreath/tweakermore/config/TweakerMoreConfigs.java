@@ -745,6 +745,12 @@ public class TweakerMoreConfigs
 
 	public static final ItemRestriction HAND_RESTORE_RESTRICTION = new ItemRestriction();
 
+	@Config(type = Config.Type.GENERIC, restriction = @Restriction(require = @Condition(ModIds.tweakeroo)), category = Config.Category.MOD_TWEAKS)
+	public static final TweakerMoreConfigBoolean HAND_RESTOCK_FORCE_SWAP = newConfigBoolean("handRestockForceSwap", false);
+
+	@Config(type = Config.Type.GENERIC, restriction = @Restriction(require = @Condition(ModIds.tweakeroo)), category = Config.Category.MOD_TWEAKS)
+	public static final TweakerMoreConfigBoolean HAND_RESTOCK_REVERSE_ORDER = newConfigBoolean("handRestockReverseOrder", false);
+
 	@Config(
 			type = Config.Type.GENERIC,
 			restriction = @Restriction(require = @Condition(ModIds.litematica)),
