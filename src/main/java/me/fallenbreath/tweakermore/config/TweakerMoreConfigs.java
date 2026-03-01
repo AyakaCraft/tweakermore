@@ -59,11 +59,13 @@ import me.fallenbreath.tweakermore.impl.mod_tweaks.ofPlayerExtraModelOverride.Op
 import me.fallenbreath.tweakermore.impl.mod_tweaks.serverDataSyncer.ServerDataSyncer;
 import me.fallenbreath.tweakermore.impl.porting.lmCustomSchematicBaseDirectoryPorting.LitematicaCustomSchematicBaseDirectoryPorting;
 import me.fallenbreath.tweakermore.impl.setting.debug.TweakerMoreDebugHelper;
+import me.fallenbreath.tweakermore.util.EntityRestriction;
 import me.fallenbreath.tweakermore.util.EnvironmentUtils;
 import me.fallenbreath.tweakermore.util.ModIds;
 import me.fallenbreath.tweakermore.util.RegistryUtils;
 import me.fallenbreath.tweakermore.util.doc.DocumentGenerator;
 import me.fallenbreath.tweakermore.event.TweakerMoreRenderEvents;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.item.Items;
 
@@ -213,6 +215,17 @@ public class TweakerMoreConfigs
 
 	@Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
 	public static final TweakerMoreConfigDouble FIREWORK_ROCKET_THROTTLER_COOLDOWN = newConfigDouble("fireworkRocketThrottlerCooldown", 1, 0, 5);
+
+	@Config(type = Config.Type.LIST, category = Config.Category.FEATURES)
+	public static final TweakerMoreConfigOptionList HIGHLIGHT_ENTITY_LIST_TYPE = newConfigOptionList("highlightEntityListType", UsageRestriction.ListType.NONE);
+
+	@Config(type = Config.Type.LIST, category = Config.Category.FEATURES)
+	public static final TweakerMoreConfigStringList HIGHLIGHT_ENTITY_WHITELIST = newConfigStringList("highlightEntityWhiteList", ImmutableList.of(RegistryUtils.getEntityTypeId(EntityType.WANDERING_TRADER)));
+
+	@Config(type = Config.Type.LIST, category = Config.Category.FEATURES)
+	public static final TweakerMoreConfigStringList HIGHLIGHT_ENTITY_BLACKLIST = newConfigStringList("highlightEntityBlackList", ImmutableList.of());
+
+	public static final EntityRestriction HIGHLIGHT_ENTITY_RESTRICTION = new EntityRestriction();
 
 	@Config(type = Config.Type.TWEAK, category = Config.Category.FEATURES)
 	public static final TweakerMoreConfigBooleanHotkeyed INFO_VIEW = newConfigBooleanHotkeyed("infoView");
@@ -1088,6 +1101,8 @@ public class TweakerMoreConfigs
 
 	static void onConfigLoaded()
 	{
+		TweakerMoreConfigs.HIGHLIGHT_ENTITY_RESTRICTION.setListType((UsageRestriction.ListType)TweakerMoreConfigs.HIGHLIGHT_ENTITY_LIST_TYPE.getOptionListValue());
+		TweakerMoreConfigs.HIGHLIGHT_ENTITY_RESTRICTION.setListContents(TweakerMoreConfigs.HIGHLIGHT_ENTITY_BLACKLIST.getStrings(), TweakerMoreConfigs.HIGHLIGHT_ENTITY_WHITELIST.getStrings());
 		TweakerMoreConfigs.HAND_RESTORE_RESTRICTION.setListType((UsageRestriction.ListType)TweakerMoreConfigs.HAND_RESTORE_LIST_TYPE.getOptionListValue());
 		TweakerMoreConfigs.HAND_RESTORE_RESTRICTION.setListContents(TweakerMoreConfigs.HAND_RESTORE_BLACKLIST.getStrings(), TweakerMoreConfigs.HAND_RESTORE_WHITELIST.getStrings());
 		TweakerMoreConfigs.AUTO_CLEAN_CONTAINER_RESTRICTION.setListType((UsageRestriction.ListType)TweakerMoreConfigs.AUTO_CLEAN_CONTAINER_LIST_TYPE.getOptionListValue());

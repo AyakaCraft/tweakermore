@@ -20,6 +20,8 @@
 
 package me.fallenbreath.tweakermore.util;
 
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.Registry;
@@ -34,5 +36,9 @@ public class RegistryUtils
 	public static String getBlockId(Block block)
 	{
 		return Registry.BLOCK.getKey(block).toString();
+	}
+
+	public static <T extends Entity> String getEntityTypeId(EntityType<T> entity) {
+		return Registry.ENTITY_TYPE.getKey(entity).toString();
 	}
 }

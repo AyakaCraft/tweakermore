@@ -39,6 +39,7 @@
     "tweaks.features.fireworkRocketThrottler.ClientPlayerInteractionManagerMixin",
     "tweaks.features.flawlessFrames.ScreenshotRendererMixin",
     "tweaks.features.flawlessFrames.VideoRendererMixin",
+    "tweaks.features.highlightEntity.MixinEntity",
     "tweaks.features.infoView.beacon.BeaconBlockEntityAccessor",
     "tweaks.features.infoView.commandBlock.CommandSuggestorAccessor",
     "tweaks.features.infoView.growthSpeed.AttachedStemBlockAccessor",
