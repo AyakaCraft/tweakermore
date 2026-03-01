@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Restriction(require = @Condition(ModIds.tweakeroo))
 @Mixin(InventoryUtils.class)
 public abstract class InventoryUtilsMixin {
-    @WrapOperation(method = "swapItemToHand", remap = false, at = @At(value = "INVOKE", target =
+    @WrapOperation(method = "swapItemToHand", remap = false, at = @At(value = "INVOKE", remap = true, target =
             //#if MC >= 11700
             //$$ "Lfi/dy/masa/tweakeroo/util/InventoryUtils;isHotbarSlot(I)Z"
             //#else

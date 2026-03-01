@@ -39,6 +39,9 @@ import org.spongepowered.asm.mixin.Mixin;
 public class PlacementTweaksMixin {
     @WrapMethod(method = "onProcessRightClickPost")
     private static void onProcessRightClickPostDisabled(Player player, InteractionHand hand, Operation<Void> original){
-        if(!TweakerMoreConfigs.HAND_RESTOCK_FIX_PORTING.getBooleanValue()) original.call(player, hand);
+        //#if MC >= 11500
+        if(!TweakerMoreConfigs.HAND_RESTOCK_FIX_PORTING.getBooleanValue())
+            //#endif
+            original.call(player, hand);
     }
 }

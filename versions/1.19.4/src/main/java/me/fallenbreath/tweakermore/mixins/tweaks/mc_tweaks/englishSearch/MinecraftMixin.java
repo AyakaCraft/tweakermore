@@ -34,6 +34,9 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.TooltipFlag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+//#if MC >= 12006
+//$$ import net.minecraft.world.item.Item.TooltipContext;
+//#endif
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -46,16 +49,33 @@ import java.util.stream.Stream;
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
     @Shadow
-    public <T> void populateSearchTree(SearchRegistry.Key<T> key, List<T> values){
+    public <T> void populateSearchTree(SearchRegistry.Key<T> key, List<T> values) {
         throw new AssertionError();
     }
 
     @WrapMethod(method = "createSearchTrees")
-    private void createSearchTrees(Operation<Void> original){
+    private void createSearchTrees(Operation<Void> original) {
         MinecraftAccessor self = (MinecraftAccessor) this;
-        self.getSearchRegistry().register(SearchRegistry.CREATIVE_NAMES, (list) -> new FullTextSearchTree<>((itemStack) -> TranslatableUtils.getString(itemStack.getTooltipLines(null, TooltipFlag.Default.NORMAL.asCreative()).stream()), (itemStack) -> Stream.of(BuiltInRegistries.ITEM.getKey(itemStack.getItem())), list));
+        self.getSearchRegistry().register(SearchRegistry.CREATIVE_NAMES, (list) -> new FullTextSearchTree<>((itemStack) -> TranslatableUtils.getString(itemStack.getTooltipLines(
+                //#if MC >= 12006
+                //$$ TooltipContext.EMPTY,
+                //#endif
+                null, TooltipFlag.Default.NORMAL.asCreative()).stream()), (itemStack) -> Stream.of(BuiltInRegistries.ITEM.getKey(itemStack.getItem())), list));
         self.getSearchRegistry().register(SearchRegistry.CREATIVE_TAGS, (list) -> new IdSearchTree<>((itemStack) -> itemStack.getTags().map(TagKey::location), list));
-        self.getSearchRegistry().register(SearchRegistry.RECIPE_COLLECTIONS, (list) -> new FullTextSearchTree<>((recipeCollection) -> recipeCollection.getRecipes().stream().flatMap((recipe) -> TranslatableUtils.getString(recipe.getResultItem(recipeCollection.registryAccess()).getTooltipLines(null, TooltipFlag.Default.NORMAL).stream())), (recipeCollection) -> recipeCollection.getRecipes().stream().map((recipe) -> BuiltInRegistries.ITEM.getKey(recipe.getResultItem(recipeCollection.registryAccess()).getItem())), list));
+        self.getSearchRegistry().register(SearchRegistry.RECIPE_COLLECTIONS, (list) -> new FullTextSearchTree<>((recipeCollection) -> recipeCollection.getRecipes().stream().flatMap((recipe) -> TranslatableUtils.getString(recipe
+                //#if MC >= 12002
+                //$$ .value()
+                //#endif
+                .getResultItem(recipeCollection.registryAccess()).getTooltipLines(
+                        //#if MC >= 12006
+                        //$$ TooltipContext.EMPTY,
+                        //#endif
+                        null, TooltipFlag.Default.NORMAL).stream())),
+                (recipeCollection) -> recipeCollection.getRecipes().stream().map((recipe) -> BuiltInRegistries.ITEM.getKey(recipe
+                        //#if MC >= 12002
+                        //$$ .value()
+                        //#endif
+                        .getResultItem(recipeCollection.registryAccess()).getItem())), list));
         CreativeModeTabs.searchTab().setSearchTreeBuilder((list) -> {
             this.populateSearchTree(SearchRegistry.CREATIVE_NAMES, list);
             this.populateSearchTree(SearchRegistry.CREATIVE_TAGS, list);

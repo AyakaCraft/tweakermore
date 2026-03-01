@@ -50,10 +50,12 @@ public abstract class MixinClientPlayerInteractionManager {
                                          //#endif
                                          InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir)
     {
+        //#if MC >= 11500
         if (TweakerMoreConfigs.HAND_RESTOCK_FIX_PORTING.getBooleanValue() && cir.getReturnValue().consumesAction())
         {
             HandRestockUtils.onProcessRightClickPost(player, hand);
         }
+        //#endif
     }
 
 }

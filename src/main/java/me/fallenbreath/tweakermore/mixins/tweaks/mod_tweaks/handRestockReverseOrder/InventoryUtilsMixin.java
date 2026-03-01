@@ -32,8 +32,8 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Restriction(require = @Condition(ModIds.tweakeroo))
 @Mixin(InventoryUtils.class)
 public abstract class InventoryUtilsMixin {
-    @ModifyArg(method = "restockNewStackToHand",
-            at = @At(value = "INVOKE", remap = false, target = "Lfi/dy/masa/tweakeroo/util/InventoryUtils;findSlotWithItem(Lnet/minecraft/world/inventory/AbstractContainerMenu;Lnet/minecraft/world/item/ItemStack;ZZ)I"),
+    @ModifyArg(method = "restockNewStackToHand", remap = false,
+            at = @At(value = "INVOKE", remap = true, target = "Lfi/dy/masa/tweakeroo/util/InventoryUtils;findSlotWithItem(Lnet/minecraft/world/inventory/AbstractContainerMenu;Lnet/minecraft/world/item/ItemStack;ZZ)I"),
             index = 3)
     private static boolean reverse(boolean reverse){
         return !TweakerMoreConfigs.HAND_RESTOCK_REVERSE_ORDER.getBooleanValue() && reverse;

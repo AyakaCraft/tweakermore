@@ -22,8 +22,11 @@ package me.fallenbreath.tweakermore.mixins.tweaks.porting.handRestockFixPorting;
 
 import fi.dy.masa.tweakeroo.config.FeatureToggle;
 import fi.dy.masa.tweakeroo.tweaks.PlacementTweaks;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.fallenbreath.tweakermore.config.TweakerMoreConfigs;
 import me.fallenbreath.tweakermore.impl.porting.handRestockFixPorting.HandRestockUtils;
+import me.fallenbreath.tweakermore.util.ModIds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
@@ -35,6 +38,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Restriction(require = {
+        @Condition(value = ModIds.tweakeroo),
+        @Condition(value = ModIds.minecraft, versionPredicates = "<1.21")
+})
 @Mixin({ClientPacketListener.class})
 public abstract class MixinClientPlayNetworkHandler {
 
