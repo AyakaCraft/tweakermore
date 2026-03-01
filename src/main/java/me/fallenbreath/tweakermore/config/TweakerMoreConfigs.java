@@ -219,6 +219,9 @@ public class TweakerMoreConfigs
 	@Config(type = Config.Type.LIST, category = Config.Category.FEATURES)
 	public static final TweakerMoreConfigOptionList HIGHLIGHT_ENTITY_LIST_TYPE = newConfigOptionList("highlightEntityListType", UsageRestriction.ListType.NONE);
 
+	@Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
+	public static final TweakerMoreConfigBooleanHotkeyed HIGHLIGHT_ENTITY = newConfigBooleanHotkeyed("highlightEntity");
+
 	@Config(type = Config.Type.LIST, category = Config.Category.FEATURES)
 	public static final TweakerMoreConfigStringList HIGHLIGHT_ENTITY_WHITELIST = newConfigStringList("highlightEntityWhiteList", ImmutableList.of(RegistryUtils.getEntityTypeId(EntityType.WANDERING_TRADER)));
 

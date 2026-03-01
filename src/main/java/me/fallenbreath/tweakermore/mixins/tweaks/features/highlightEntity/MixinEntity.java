@@ -55,7 +55,7 @@ public abstract class MixinEntity {
             cancellable = true
     )
     private void checkHighlightEntity(CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValue() || !this.level.isClientSide()) {
+        if (!TweakerMoreConfigs.HIGHLIGHT_ENTITY.getBooleanValue() || cir.getReturnValue() || !this.level.isClientSide()) {
             return;
         }
 

@@ -120,6 +120,9 @@ tweakermore:
     fireworkRocketThrottlerCooldown:
       .: fireworkRocketThrottlerCooldown
       comment: The cooldown value of option @option#fireworkRocketThrottler@ in seconds
+    highlightEntity:
+      .: highlightEntity
+      comment: Highlight some types of entities.
     highlightEntityBlackList:
       .: highlightEntityBlackList
       comment: The entity type ids that will NOT be highlighted by highlightEntity.
