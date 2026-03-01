@@ -650,6 +650,9 @@ tweakermore:
       comment: |-
         修复使用原版聊天缩放设置来缩放聊天信息HUD中的文本时，其悬浮文本没有被缩放，仍保持100%%比例
         这个选项让悬浮文本也使用相同的缩放比例进行缩放
+    flatDigger:
+      .: 平坦挖掘
+      comment: 只有在潜行时才能挖掘比自己低的方块
     flawlessFrames:
       .: 无瑕世界渲染
       comment: |-

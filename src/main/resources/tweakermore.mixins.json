@@ -142,6 +142,7 @@
     "tweaks.mc_tweaks.fixChestMirroring.ChestBlockMixin",
     "tweaks.mc_tweaks.fixHoverTextScale.ChatScreenMixin",
     "tweaks.mc_tweaks.fixHoverTextScale.HoverTextRendererClassMixin",
+    "tweaks.mc_tweaks.flatDigger.MixinClientPlayerInteractionManager",
     "tweaks.mc_tweaks.flyDrag.LivingEntityMixin",
     "tweaks.mc_tweaks.fovOverride.GameRendererMixin",
     "tweaks.mc_tweaks.itemTooltipHideUntilMouseMove.ContainerScreenMixin",
