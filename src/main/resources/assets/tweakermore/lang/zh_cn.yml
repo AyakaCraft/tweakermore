@@ -120,6 +120,15 @@ tweakermore:
     fireworkRocketThrottlerCooldown:
       .: 烟花火箭限速器-冷却时间
       comment: 选项@option#fireworkRocketThrottler@的冷却时间，单位秒
+    highlightEntityBlackList:
+      .: 高亮实体黑名单
+      comment: 不会被highlightEntity高亮的实体类型id
+    highlightEntityListType:
+      .: 高亮实体名单类型
+      comment: highlightEntity功能的实体名单约束类型
+    highlightEntityWhiteList:
+      .: 高亮实体白名单
+      comment: 会被highlightEntity高亮的实体类型id
     infoView:
       .: 信息展示
       comment: |-
