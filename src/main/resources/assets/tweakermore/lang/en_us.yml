@@ -837,6 +837,9 @@ tweakermore:
       comment: |-
         Make those players who don't have custom skins use only Steve or Alex as their default skins
         This brings back the classic behavior from Minecraft < 1.19.3
+    tadpoleBucketGrowthLeftTime:
+      .: tadpoleBucketGrowthLeftTime
+      comment: Display the growth left time of tadpole in first line of the tooltip of the tadpole bucket items
     tickFreezeAutoReplaceWithUnfreeze:
       .: tickFreezeAutoReplaceWithUnfreeze
       comment: |-
