@@ -83,7 +83,13 @@ public class TweakerMoreConfigStorage implements IConfigHandler
 		File configFile = FileUtils.getConfigFile();
 		if (configFile.exists() && configFile.isFile() && configFile.canRead())
 		{
-			JsonElement element = JsonUtils.parseJsonFile(configFile);
+			JsonElement element = JsonUtils.parseJsonFile(
+					//#if MC >= 1.21.11
+					//$$ configFile.toPath()
+					//#else
+					configFile
+					//#endif
+			);
 
 			if (element != null && element.isJsonObject())
 			{
@@ -159,7 +165,14 @@ public class TweakerMoreConfigStorage implements IConfigHandler
 			File configFile = FileUtils.getConfigFile();
 			// malilib in <mc1.17 doesn't have the "save to temp then rename" operation, so we do it ourself
 			//#if MC >= 11700
-			//$$ JsonUtils.writeJsonToFile(root, configFile);
+			//$$ JsonUtils.writeJsonToFile(
+			//$$ 		root,
+			//$$ 		//#if MC >= 1.21.11
+			//$$ 		//$$ configFile.toPath()
+			//$$ 		//#else
+			//$$ 		configFile
+			//$$ 		//#endif
+			//$$ );
 			//#else
 			File tempFile = new File(configFile.getParent(), configFile.getName() + ".tmp");
 			JsonUtils.writeJsonToFile(root, tempFile);
