@@ -199,6 +199,7 @@
     "tweaks.mc_tweaks.spectatorTeleportMenuIncludeSpectator.TeleportSpectatorMenuMixin",
     "tweaks.mc_tweaks.spectatorTeleportMenuIncludeSpectator.TeleportToSpecificPlayerSpectatorCommandMixin",
     "tweaks.mc_tweaks.steveAlexOnlyDefaultSkins.DefaultSkinHelperMixin",
+    "tweaks.mc_tweaks.tadpoleBucketTooltipHints.ItemStackMixin",
     "tweaks.mc_tweaks.tickFreezeAutoReplaceWithUnfreeze.ClientPlayNetworkHandlerMixin",
     "tweaks.mc_tweaks.unlimitedBlockEntityRenderDistance.BlockEntityRenderDispatcherMixin",
     "tweaks.mc_tweaks.unlimitedEntityRenderDistance.EntityMixin",

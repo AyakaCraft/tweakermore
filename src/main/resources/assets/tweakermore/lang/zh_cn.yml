@@ -854,6 +854,9 @@ tweakermore:
       comment: |-
         让那些没有自定义皮肤的玩家只使用Steve或Alex作为他们的默认皮肤
         这将带回Minecraft 1.19.3版本以前那个经典的只有Steve/Alex皮肤的世界
+    tadpoleBucketGrowthLeftTime:
+      .: 蝌蚪桶中蝌蚪成长时间
+      comment: 在蝌蚪桶物品工具提示的第一行显示其还有多久成长为青蛙
     tickFreezeAutoReplaceWithUnfreeze:
       .: tickFreeze自动替换为unfreeze
       comment: |-

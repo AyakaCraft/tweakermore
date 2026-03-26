@@ -732,6 +732,9 @@ public class TweakerMoreConfigs
 	@Config(type = Config.Type.GENERIC, restriction = @Restriction(conflict = @Condition(ModIds.locked_window_size)), category = Config.Category.MC_TWEAKS)
 	public static final TweakerMoreConfigBoolean WINDOW_SIZE_PINNED = newConfigBoolean("windowSizePinned", false);
 
+	@Config(type = Config.Type.GENERIC, restriction = @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19")), category = Config.Category.MC_TWEAKS)
+	public static final TweakerMoreConfigBoolean TADPOLE_BUCKET_GROWTH_LEFT_TIME = newConfigBoolean("tadpoleBucketGrowthLeftTime", false);
+
 	////////////////////
 	//   Mod Tweaks   //
 	////////////////////

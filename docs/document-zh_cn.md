@@ -2171,6 +2171,18 @@ FOV覆盖的开关
     - Minecraft (`minecraft`) `>=1.19.3`
 
 
+### 蝌蚪桶中蝌蚪成长时间 (tadpoleBucketGrowthLeftTime)
+
+在蝌蚪桶物品工具提示的第一行显示其还有多久成长为青蛙
+
+- 分类: MC修改
+- 类型: 布尔值 (通用)
+- 默认值: `false`
+- 模组约束:
+  - 依赖模组:
+    - Minecraft (`minecraft`) `>=1.19`
+
+
 ### tickFreeze自动替换为unfreeze (tickFreezeAutoReplaceWithUnfreeze)
 
 当游戏被/tick freeze冻结后，若在聊天栏再次输入/tick freeze命令，

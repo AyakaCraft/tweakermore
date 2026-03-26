@@ -25,22 +25,23 @@ import me.fallenbreath.tweakermore.gui.SelectorDropDownList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+//#if MC < 12111
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
+//#endif
 
 @Mixin(WidgetDropDownList.class)
 public abstract class WidgetDropDownListMixin
 {
+	//#if MC < 12111
 	@SuppressWarnings({"ConstantConditions", "PointlessBitwiseExpression", "PointlessArithmeticExpression"})
 	@ModifyArgs(
 			method = "render",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 12111
-					//$$ target = "Lfi/dy/masa/malilib/render/RenderUtils;drawRect(Lfi/dy/masa/malilib/render/GuiContext;IIIII)V",
-					//$$ remap = false
-					//#elseif MC >= 12106
+					//#if MC >= 12106
 					//$$ target = "Lfi/dy/masa/malilib/render/RenderUtils;drawRect(Lnet/minecraft/client/gui/GuiGraphics;IIIII)V",
 					//$$ remap = true
 					//#elseif MC >= 12105
@@ -73,6 +74,7 @@ public abstract class WidgetDropDownListMixin
 			args.set(baseIdx + 0, (int)args.get(baseIdx + 0) + 1);
 		}
 	}
+	//#endif
 
 	@SuppressWarnings("ConstantConditions")
 	@Inject(

@@ -2177,6 +2177,18 @@ This brings back the classic behavior from Minecraft < 1.19.3
     - Minecraft (`minecraft`) `>=1.19.3`
 
 
+### tadpoleBucketGrowthLeftTime
+
+Display the growth left time of tadpole in first line of the tooltip of the tadpole bucket items
+
+- Category: MC Tweaks
+- Type: boolean (Generic)
+- Default value: `false`
+- Mod restrictions:
+  - Required mods:
+    - Minecraft (`minecraft`) `>=1.19`
+
+
 ### tickFreezeAutoReplaceWithUnfreeze
 
 When the game is frozen with the /tick freeze command, if you enter another /tick freeze 
