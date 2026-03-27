@@ -110,7 +110,7 @@ dependencies {
 	if (mcVersion >= 12006) {
 		// modmenu needs these
 		autoRuntimeOnly fabricApi.module("fabric-screen-api-v1", project.fabric_api_version)
-		autoRuntimeOnly fabricApi.module("fabric-key-binding-api-v1", project.fabric_api_version)
+		autoRuntimeOnly fabricApi.module(mcVersion >= 260000 ? "fabric-key-mapping-api-v1" : "fabric-key-binding-api-v1", project.fabric_api_version)
 		autoRuntimeOnly fabricApi.module("fabric-lifecycle-events-v1", project.fabric_api_version)
 	}
 
@@ -183,7 +183,7 @@ loom {
 
 	mixin {
 		// suppress "Cannot remap xxx because it does not exists in any of the targets" warning. It does not respect `remap = false` :(
-		useLegacyMixinAp = true
+		useLegacyMixinAp = !unobfuscated
 	}
 }
 
