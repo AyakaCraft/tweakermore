@@ -1,6 +1,7 @@
 net.fabricmc.fabric.api.client.command.v2.ClientCommandManager net.fabricmc.fabric.api.client.command.v2.ClientCommands
 net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource getWorld() getLevel()
 
+net.minecraft.client.GuiMessage net.minecraft.client.multiplayer.chat.GuiMessage
 net.minecraft.client.gui.GuiGraphics drawString() net.minecraft.client.gui.GuiGraphicsExtractor text()
 net.minecraft.client.gui.GuiGraphics net.minecraft.client.gui.GuiGraphicsExtractor
 net.minecraft.client.gui.GuiGraphics renderItem() net.minecraft.client.gui.GuiGraphicsExtractor item()

@@ -2,7 +2,7 @@
  * This file is part of the TweakerMore project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2026  Fallen_Breath and contributors
  *
  * TweakerMore is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,33 +18,15 @@
  * along with TweakerMore.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.fallenbreath.tweakermore.mixins.doc;
+package me.fallenbreath.tweakermore.mixins.tweaks.mc_tweaks.daytimeOverride;
 
-import me.fallenbreath.tweakermore.event.TweakerMoreClientEvents;
-import net.minecraft.client.Minecraft;
+import me.fallenbreath.tweakermore.util.mixin.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(Minecraft.class)
-public abstract class MinecraftClientMixin
+/**
+ * See {@link ClientClockManagerMixin} in mc 26.1+
+ */
+@Mixin(DummyClass.class)
+public abstract class ClientWorldMixin
 {
-	@Inject(
-			//#if MC >= 26.1
-			//$$ method = "lambda$new$6",
-			//#elseif MC >= 11600
-			//$$ method = "method_29338",
-			//#elseif MC >= 11500
-			method = "method_24227",
-			//#else
-			//$$ method = "method_18504",
-			//#endif
-			at = @At("TAIL"),
-			remap = false
-	)
-	private void onClientInitFinished(CallbackInfo ci)
-	{
-		TweakerMoreClientEvents.onClientInitFinished();
-	}
 }

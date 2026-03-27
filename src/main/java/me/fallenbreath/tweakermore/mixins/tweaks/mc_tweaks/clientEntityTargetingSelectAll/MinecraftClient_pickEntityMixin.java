@@ -42,7 +42,11 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class MinecraftClient_pickEntityMixin
 {
 	@ModifyExpressionValue(
+			//#if MC >= 26.1
+			//$$ method = "pickBlockOrEntity",
+			//#else
 			method = "pickBlock",
+			//#endif
 			at = @At(
 					value = "FIELD",
 					target = "Lnet/minecraft/client/Minecraft;hitResult:Lnet/minecraft/world/phys/HitResult;"

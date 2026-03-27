@@ -52,10 +52,16 @@ import net.minecraft.client.gui.screens.inventory.HorseInventoryScreen;
 public abstract class InventoryScreenMixin
 {
 	@WrapWithCondition(
+			//#if MC >= 26.1
+			//$$ method = "extractBackground",
+			//#else
 			method = "renderBg",
+			//#endif
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 12002
+					//#if MC >= 26.1
+					//$$ target = "Lnet/minecraft/client/gui/screens/inventory/InventoryScreen;extractEntityInInventoryFollowsMouse(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIIIIFFFLnet/minecraft/world/entity/LivingEntity;)V"
+					//#elseif MC >= 12002
 					//$$ target = "Lnet/minecraft/client/gui/screens/inventory/InventoryScreen;renderEntityInInventoryFollowsMouse(Lnet/minecraft/client/gui/GuiGraphics;IIIIIFFFLnet/minecraft/world/entity/LivingEntity;)V"
 					//#elseif MC >= 12000
 					//$$ target = "Lnet/minecraft/client/gui/screens/inventory/InventoryScreen;renderEntityInInventoryFollowsMouse(Lnet/minecraft/client/gui/GuiGraphics;IIIFFLnet/minecraft/world/entity/LivingEntity;)V"

@@ -36,7 +36,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * See {@link fi.dy.masa.malilib.mixin.MixinInventoryScreen#malilib_onPostInventoryStatusEffects}
+ * See
+ * - 1.21.4  {@link fi.dy.masa.malilib.mixin.MixinInventoryScreen#malilib_onPostInventoryStatusEffects}
+ * - 1.21.5+ {@link fi.dy.masa.malilib.mixin.screen.MixinInventoryScreen#malilib_onPostInventoryStatusEffects}
+ * <p>
  * We need to wrap its injection and update the shouldCancel flag.
  * <p>
  * Notes for the injection order:
@@ -52,7 +55,14 @@ public abstract class InventoryScreenMixins
 	@Mixin(value = InventoryScreen.class, priority = 500)
 	public static abstract class Start
 	{
-		@Inject(method = "render", at = @At("TAIL"))
+		@Inject(
+				//#if MC >= 26.1
+				//$$ method = "extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V",
+				//#else
+				method = "render",
+				//#endif
+				at = @At("TAIL")
+		)
 		private void itemTooltipHideUntilMouseMove_malilibHackBegin(
 				CallbackInfo ci,
 				@Local(ordinal = 0, argsOnly = true) int mouseX,
@@ -80,7 +90,14 @@ public abstract class InventoryScreenMixins
 	@Mixin(value = InventoryScreen.class, priority = 2000)
 	public static abstract class End
 	{
-		@Inject(method = "render", at = @At("TAIL"))
+		@Inject(
+				//#if MC >= 26.1
+				//$$ method = "extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V",
+				//#else
+				method = "render",
+				//#endif
+				at = @At("TAIL")
+		)
 		private void itemTooltipHideUntilMouseMove_malilibHackEnd(
 				CallbackInfo ci,
 				@Share(value = "flagSet", namespace = SHARE_NS) LocalBooleanRef flagSet

@@ -48,7 +48,7 @@ public abstract class ClientWorldMixin
 			//#endif
 			at = @At("HEAD")
 	)
-	private void overwriteDayTime(
+	private void overwriteDayTime_modifySetter(
 			CallbackInfo ci,
 			//#if MC >= 12103
 			//$$ @Local(argsOnly = true, ordinal = 1) LocalLongRef timeOfDay,

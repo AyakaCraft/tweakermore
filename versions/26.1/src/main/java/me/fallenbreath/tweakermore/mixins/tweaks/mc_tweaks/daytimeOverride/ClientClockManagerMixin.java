@@ -2,7 +2,7 @@
  * This file is part of the TweakerMore project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2026  Fallen_Breath and contributors
  *
  * TweakerMore is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,34 +21,33 @@
 package me.fallenbreath.tweakermore.mixins.tweaks.mc_tweaks.daytimeOverride;
 
 import me.fallenbreath.tweakermore.config.TweakerMoreConfigs;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.world.level.Level;
+import net.minecraft.client.ClientClockManager;
+import net.minecraft.world.clock.ClockNetworkState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Mixin(Level.class)
-public abstract class WorldMixin
+/**
+ * Modify daytime here too,
+ * so the logic used when the client received a time update packet can be reused by us (gamerule changing etc.)
+ */
+@Mixin(ClientClockManager.class)
+public abstract class ClientClockManagerMixin
 {
-	@Inject(
-			//#if MC >= 26.1
-			//$$ method = "getOverworldClockTime",
-			//#else
-			method = "getDayTime",
-			//#endif
+	// currently `handleUpdates` is only called in `ClientPacketListener#handleSetTime`,
+	// which means that only the time update packet can trigger this
+	@ModifyVariable(
+			method = "lambda$handleUpdates$0",
 			at = @At("HEAD"),
-			cancellable = true
+			argsOnly = true
 	)
-	private void overwriteDayTime_modifyGetter(CallbackInfoReturnable<Long> cir)
+	private ClockNetworkState overwriteDayTime_modifySetter(ClockNetworkState state)
 	{
-		Level self = (Level)(Object)this;
-		if (self instanceof ClientLevel)
+		if (TweakerMoreConfigs.DAYTIME_OVERRIDE.getBooleanValue())
 		{
-			if (TweakerMoreConfigs.DAYTIME_OVERRIDE.getBooleanValue())
-			{
-				cir.setReturnValue((long)TweakerMoreConfigs.DAYTIME_OVERRIDE_VALUE.getIntegerValue());
-			}
+			long dayTime = TweakerMoreConfigs.DAYTIME_OVERRIDE_VALUE.getIntegerValue();
+			state = new ClockNetworkState(dayTime, 0, 0);
 		}
+		return state;
 	}
 }

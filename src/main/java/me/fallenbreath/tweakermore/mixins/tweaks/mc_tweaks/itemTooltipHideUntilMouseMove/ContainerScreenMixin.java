@@ -46,7 +46,15 @@ public abstract class ContainerScreenMixin implements ContainerScreenWithToolTip
 		return this.tooltipHideHelper$TKM;
 	}
 
-	@Inject(method = "renderTooltip", at = @At("HEAD"), cancellable = true)
+	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "extractTooltip",
+			//#else
+			method = "renderTooltip",
+			//#endif
+			at = @At("HEAD"),
+			cancellable = true
+	)
 	private void itemTooltipHideUntilMouseMove_impl(
 			//#if MC >= 11600
 			//$$ @Coerce Object whatever,
