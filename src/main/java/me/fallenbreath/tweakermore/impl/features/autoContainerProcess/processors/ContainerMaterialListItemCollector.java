@@ -110,7 +110,9 @@ public class ContainerMaterialListItemCollector implements IContainerProcessor
 							}
 						}
 
-						//#if MC >= 12103
+						//#if MC >= 26.1
+						//$$ String itemName = stack.getItem().getName(stack).getString();
+						//#elseif MC >= 12103
 						//$$ String itemName = stack.getItem().getName().getString();
 						//#else
 						String itemName = stack.getItem().getDescription().getString();

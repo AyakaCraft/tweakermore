@@ -74,7 +74,11 @@ public abstract class SignEditScreenMixin extends Screen
 	}
 
 	@ModifyExpressionValue(
+			//#if MC >= 26.1
+			//$$ method = "lambda$init$2",  // lambda method in init
+			//#else
 			method = "method_45658",  // lambda method in init
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/block/entity/SignBlockEntity;getMaxTextLineWidth()I",

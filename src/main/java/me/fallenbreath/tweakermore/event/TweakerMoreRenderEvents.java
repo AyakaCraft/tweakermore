@@ -60,7 +60,11 @@ public abstract class TweakerMoreRenderEvents
 
 	public static void init()
 	{
+		//#if MC >= 26.1
+		//$$ RenderEventHandler.getInstance().registerInGameGuiRenderer(new MalilibRendererHook());
+		//#else
 		RenderEventHandler.getInstance().registerGameOverlayRenderer(new MalilibRendererHook());
+		//#endif
 	}
 
 	public static void dispatchRenderWorldPostEvent(
@@ -95,6 +99,13 @@ public abstract class TweakerMoreRenderEvents
 
 	private static class MalilibRendererHook implements IRenderer
 	{
+		//#if MC >= 26.1
+		//$$ @Override
+		//$$ public void onExtractGuiOverlayPost(GuiContext guiContext, float partialTicks, ProfilerFiller profiler)
+		//$$ {
+		//$$ 	dispatchRenderGameOverlayPost(RenderContext.gui(guiContext));
+		//$$ }
+		//#else
 		@Override
 		public void onRenderGameOverlayPost(
 				//#if MC >= 12111
@@ -118,5 +129,6 @@ public abstract class TweakerMoreRenderEvents
 					)
 			);
 		}
+		//#endif
 	}
 }

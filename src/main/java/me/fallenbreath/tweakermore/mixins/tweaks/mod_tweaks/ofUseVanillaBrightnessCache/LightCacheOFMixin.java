@@ -35,10 +35,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @SuppressWarnings({"UnresolvedMixinReference", "UnusedMixin"})
-@Restriction(require = @Condition(ModIds.optifine))
+@Restriction(require = {
+		@Condition(ModIds.optifine),
+		@Condition(value = ModIds.minecraft, versionPredicates = "<26.1")
+})
 @Pseudo
 @Mixin(targets = "net.optifine.render.LightCacheOF")
-public class LightCacheOFMixin
+public abstract class LightCacheOFMixin
 {
 	@Redirect(
 			method = "getBrightness",

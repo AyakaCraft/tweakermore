@@ -91,7 +91,12 @@ public class InWorldGuiDrawer implements AutoCloseable
 		this.guiRenderer.render(this.fogRenderer.getBuffer(FogRenderer.FogMode.NONE));
 		RenderSystem.restoreProjectionMatrix();
 
+		//#if MC >= 26.1
+		//$$ this.guiRenderer.endFrame();
+		//#else
 		this.guiRenderer.incrementFrameNumber();
+		//#endif
+
 		this.fogRenderer.endFrame();
 		this.guiState.reset();
 	}

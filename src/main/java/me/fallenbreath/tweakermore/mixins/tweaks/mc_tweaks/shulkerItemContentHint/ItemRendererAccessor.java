@@ -29,8 +29,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(ItemRenderer.class)
 public interface ItemRendererAccessor
 {
-	//#if MC < 11904
 	@Invoker("fillRect")
 	void invokeRenderGuiQuad(BufferBuilder buffer, int x, int y, int width, int height, int red, int green, int blue, int alpha);
-	//#endif
 }

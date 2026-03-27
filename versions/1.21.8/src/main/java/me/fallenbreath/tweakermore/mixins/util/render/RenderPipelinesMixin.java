@@ -21,7 +21,6 @@
 package me.fallenbreath.tweakermore.mixins.util.render;
 
 import com.mojang.blaze3d.pipeline.RenderPipeline;
-import com.mojang.blaze3d.platform.DepthTestFunction;
 import me.fallenbreath.tweakermore.TweakerMoreMod;
 import me.fallenbreath.tweakermore.util.IdentifierUtils;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -32,6 +31,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import me.fallenbreath.tweakermore.util.render.TweakerMoreRenderPipelines;
+
+//#if MC >= 26.1
+//$$ import com.mojang.blaze3d.platform.CompareOp;
+//$$ import com.mojang.blaze3d.pipeline.DepthStencilState;
+//#else
+import com.mojang.blaze3d.platform.DepthTestFunction;
+//#endif
 
 @Mixin(RenderPipelines.class)
 public abstract class RenderPipelinesMixin
@@ -50,8 +56,11 @@ public abstract class RenderPipelinesMixin
 		TweakerMoreRenderPipelines.GUI_TEXTURED_NO_DEPTH_TEST = register(
 				RenderPipeline.builder(GUI_TEXTURED_SNIPPET).
 				withLocation(IdentifierUtils.of(TweakerMoreMod.MOD_ID, "pipeline/gui_textured_no_depth_test")).
-				withDepthTestFunction(DepthTestFunction.NO_DEPTH_TEST).
-				withDepthWrite(false).
+				//#if MC >= 26.1
+				//$$ withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS_PASS, false)).
+				//#else
+				withDepthTestFunction(DepthTestFunction.NO_DEPTH_TEST).withDepthWrite(false).
+				//#endif
 				build()
 		);
 	}

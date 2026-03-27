@@ -21,6 +21,7 @@
 package me.fallenbreath.tweakermore.impl.features.infoView.cache;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import me.fallenbreath.tweakermore.util.PositionUtils;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.FluidState;
@@ -53,10 +54,10 @@ public class SimpleCachedWorldView implements SimpleWorldView
 
 	public ChunkAccess getChunk(BlockPos blockPos)
 	{
-		ChunkPos chunkPos = new ChunkPos(blockPos);
+		ChunkPos chunkPos = PositionUtils.flooredChunkPos(blockPos);
 		return this.chunkCache.computeIfAbsent(
-				chunkPos.toLong(),
-				k -> this.world.getChunk(chunkPos.x, chunkPos.z)
+				PositionUtils.packChunkPos(chunkPos),
+				k -> this.world.getChunk(PositionUtils.chunkPosX(chunkPos), PositionUtils.chunkPosZ(chunkPos))
 		);
 	}
 

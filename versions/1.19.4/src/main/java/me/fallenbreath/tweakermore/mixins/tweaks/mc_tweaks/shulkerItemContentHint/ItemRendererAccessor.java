@@ -18,25 +18,13 @@
  * along with TweakerMore.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.fallenbreath.tweakermore.mixins.tweaks.mod_tweaks.ofUseVanillaBrightnessCache;
+package me.fallenbreath.tweakermore.mixins.tweaks.mc_tweaks.shulkerItemContentHint;
 
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import me.fallenbreath.tweakermore.util.ModIds;
-import net.minecraft.client.renderer.block.ModelBlockRenderer;
+import me.fallenbreath.tweakermore.util.mixin.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Restriction(require = {
-		@Condition(ModIds.optifine),
-		@Condition(value = ModIds.minecraft, versionPredicates = "<26.1"),
-})
-@Mixin(ModelBlockRenderer.class)
-public interface BlockModelRendererAccessor
+// only used in mc <1.19.4
+@Mixin(DummyClass.class)
+public abstract class ItemRendererAccessor
 {
-	@Accessor("CACHE")
-	static ThreadLocal<ModelBlockRenderer.Cache> getBrightnessCache()
-	{
-		throw new RuntimeException();
-	}
 }

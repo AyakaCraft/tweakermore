@@ -191,7 +191,9 @@ public class TextRenderer
 				int backgroundColor = this.backgroundColor;
 				while (true)
 				{
-					//#if MC >= 12105
+					//#if MC >= 26.1
+					//$$ Matrix4f matrix4f = new Matrix4f(Transformation.IDENTITY.getMatrix());
+					//#elseif MC >= 12105
 					//$$ Matrix4f matrix4f = new Matrix4f(Transformation.identity().getMatrix());
 					//#else
 					Matrix4f matrix4f = Transformation.identity().getMatrix();

@@ -24,6 +24,7 @@ import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.longs.Long2DoubleOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Collection;
@@ -39,6 +40,42 @@ public class PositionUtils
 		//$$ return BlockPos.containing(vec3d);
 		//#else
 		return new BlockPos(vec3d);
+		//#endif
+	}
+
+	public static ChunkPos flooredChunkPos(BlockPos pos)
+	{
+		//#if MC >= 26.1
+		//$$ return ChunkPos.containing(pos);
+		//#else
+		return new ChunkPos(pos);
+		//#endif
+	}
+
+	public static long packChunkPos(ChunkPos chunkPos)
+	{
+		//#if MC >= 26.1
+		//$$ return chunkPos.pack();
+		//#else
+		return chunkPos.toLong();
+		//#endif
+	}
+
+	public static int chunkPosX(ChunkPos chunkPos)
+	{
+		//#if MC >= 26.1
+		//$$ return chunkPos.x();
+		//#else
+		return chunkPos.x;
+		//#endif
+	}
+
+	public static int chunkPosZ(ChunkPos chunkPos)
+	{
+		//#if MC >= 26.1
+		//$$ return chunkPos.z();
+		//#else
+		return chunkPos.z;
 		//#endif
 	}
 

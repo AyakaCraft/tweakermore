@@ -30,7 +30,10 @@ import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Restriction(require = @Condition(ModIds.optifine))
+@Restriction(require = {
+		@Condition(ModIds.optifine),
+		@Condition(value = ModIds.minecraft, versionPredicates = "<26.1")
+})
 @Mixin(SignRenderer.class)
 public abstract class SignBlockEntityRendererMixin
 {

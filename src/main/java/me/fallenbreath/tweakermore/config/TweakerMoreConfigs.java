@@ -817,7 +817,10 @@ public class TweakerMoreConfigs
 
 	@Config(
 			type = Config.Type.GENERIC,
-			restriction = @Restriction(require = @Condition(ModIds.optifine)),
+			restriction = @Restriction(require = {
+					@Condition(ModIds.optifine),
+					@Condition(value = ModIds.minecraft, versionPredicates = "<26.1")
+			}),
 			category = Config.Category.MOD_TWEAKS
 	)
 	public static final TweakerMoreConfigBoolean OF_REMOVE_SIGN_TEXT_RENDER_DISTANCE = newConfigBoolean("ofRemoveSignTextRenderDistance", false);
@@ -841,7 +844,10 @@ public class TweakerMoreConfigs
 
 	@Config(
 			type = Config.Type.GENERIC,
-			restriction = @Restriction(require = @Condition(ModIds.optifine)),
+			restriction = @Restriction(require = {
+					@Condition(ModIds.optifine),
+					@Condition(value = ModIds.minecraft, versionPredicates = "<26.1")
+			}),
 			category = Config.Category.MOD_TWEAKS
 	)
 	public static final TweakerMoreConfigBoolean OF_USE_VANILLA_BRIGHTNESS_CACHE = newConfigBoolean("ofUseVanillaBrightnessCache", false);

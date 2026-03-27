@@ -28,6 +28,11 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 
+//#if MC >= 26.1
+//$$ import net.minecraft.resources.Identifier;
+//$$ import net.minecraft.resources.ResourceKey;
+//#endif
+
 //#if MC >= 12100
 //$$ import net.minecraft.core.component.DataComponentPatch;
 //$$ import net.minecraft.Util;
@@ -35,6 +40,7 @@ import net.minecraft.nbt.CompoundTag;
 
 //#if MC >= 12006
 //$$ import net.minecraft.commands.arguments.item.ItemInput;
+//$$ import net.minecraft.core.RegistryAccess;
 //#endif
 
 public class ItemDataCopier
@@ -62,7 +68,7 @@ public class ItemDataCopier
 				//$$ 		itemStack.getComponents()
 				//$$ 		//#endif
 				//$$ );
-				//$$ String command = String.format("/give @s %s", arg.serialize(mc.level.registryAccess()));
+				//$$ String command = String.format("/give @s %s", serializeItemInput(arg, mc.level.registryAccess()));
 				//#else
 				String command = String.format("/give @s %s", itemStack.getItem());
 				CompoundTag nbt = itemStack.getTag();
@@ -77,4 +83,25 @@ public class ItemDataCopier
 			}
 		}
 	}
+
+	//#if MC >= 12006
+	//$$ private static String serializeItemInput(ItemInput itemInput, RegistryAccess registryAccess)
+	//$$ {
+	//$$ 	//#if MC >= 26.1
+	//$$ 	//$$ // copied from ItemInput#serialize from mc1.21.11
+	//$$ 	//$$ String itemName = itemInput.item().unwrapKey().map(ResourceKey::identifier).orElseGet(() -> Identifier.parse("unknown[" + itemInput.item() + "]")).toString();
+	//$$ 	//$$ StringBuilder stringBuilder = new StringBuilder(itemName);
+	//$$ 	//$$ String string = itemInput.components().toString();
+	//$$ 	//$$ if (!string.isEmpty())
+	//$$ 	//$$ {
+	//$$ 	//$$ 	stringBuilder.append('[');
+	//$$ 	//$$ 	stringBuilder.append(string);
+	//$$ 	//$$ 	stringBuilder.append(']');
+	//$$ 	//$$ }
+	//$$ 	//$$ return stringBuilder.toString();
+	//$$ 	//#else
+	//$$ 	return itemInput.serialize(registryAccess);
+	//$$ 	//#endif
+	//$$ }
+	//#endif
 }
