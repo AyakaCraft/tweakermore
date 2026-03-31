@@ -45,7 +45,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MerchantScreenWidgetButtonPageMixin extends Button
 {
 	@SuppressWarnings("target")
-	@Shadow @Final MerchantScreen field_19166;
+	@Shadow @Final
+	//#if MC >= 26.1
+	//$$ MerchantScreen this$0;
+	//#else
+	MerchantScreen field_19166;
+	//#endif
 
 	@Shadow @Final int index;
 
@@ -72,7 +77,11 @@ public abstract class MerchantScreenWidgetButtonPageMixin extends Button
 	}
 
 	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "extractToolTip",
+			//#else
 			method = "renderToolTip",
+			//#endif
 			at = @At(
 					//#if MC >= 11903
 					//$$ value = "INVOKE",
@@ -103,14 +112,20 @@ public abstract class MerchantScreenWidgetButtonPageMixin extends Button
 					//#endif
 			if (x + 50 <= mouseX && mouseX <= x + 65)
 			{
-				MerchantOffer offer = this.field_19166.getMenu().getOffers().get(this.index + ((MerchantScreenAccessor)this.field_19166).getIndexStartOffset());
+				//#if MC >= 26.1
+				//$$ MerchantScreen merchantScreen = this.this$0;
+				//#else
+				MerchantScreen merchantScreen = this.field_19166;
+				//#endif
+
+				MerchantOffer offer = merchantScreen.getMenu().getOffers().get(this.index + ((MerchantScreenAccessor)merchantScreen).getIndexStartOffset());
 
 				String text = String.format("%d / %d", offer.getUses(), offer.getMaxUses());
 
 				//#if MC >= 12000
-				//$$ context.renderTooltip(((ScreenAccessor)this.field_19166).getTextRenderer(), Messenger.s(text), mouseX, mouseY);
+				//$$ context.renderTooltip(((ScreenAccessor)merchantScreen).getTextRenderer(), Messenger.s(text), mouseX, mouseY);
 				//#else
-				this.field_19166.renderTooltip(
+				merchantScreen.renderTooltip(
 						//#if MC >= 11600
 						//$$ matrices, Messenger.s(text),
 						//#else

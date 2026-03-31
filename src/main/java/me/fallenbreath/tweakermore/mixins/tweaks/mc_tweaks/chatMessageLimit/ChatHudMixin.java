@@ -60,7 +60,7 @@ public abstract class ChatHudMixin
 			//#if MC >= 12006
 			//$$ method = {
 			//$$ 		"addMessageToDisplayQueue",
-			//$$ 		"addMessageToQueue(Lnet/minecraft/client/GuiMessage;)V"
+			//$$ 		"addMessageToQueue"
 			//$$ },
 			//#elseif MC >= 11901
 			//$$ method = "addMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;ILnet/minecraft/client/GuiMessageTag;Z)V",
@@ -81,7 +81,9 @@ public abstract class ChatHudMixin
 	}
 
 	@ModifyArgs(
-			//#if MC >= 12111
+			//#if MC >= 26.1
+			//$$ method = "extractRenderState(Lnet/minecraft/client/gui/components/ChatComponent$ChatGraphicsAccess;IILnet/minecraft/client/gui/components/ChatComponent$DisplayMode;)V",
+			//#elseif MC >= 12111
 			//$$ method = "render(Lnet/minecraft/client/gui/components/ChatComponent$ChatGraphicsAccess;IIZ)V",
 			//#else
 			method = "render",

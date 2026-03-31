@@ -52,7 +52,11 @@ public abstract class ClientPlayerInteractionManagerMixin
 	// ========================== activate cooldown ==========================
 
 	@Inject(
-			method = "method_41933",  // lambda method in interactBlock()
+			//#if MC >= 26.1
+			//$$ method = "lambda$useItemOn$0",
+			//#else
+			method = "method_41933",  // lambda method in useItemOn()
+			//#endif
 			at = @At("HEAD"),
 			cancellable = true
 	)
@@ -72,7 +76,11 @@ public abstract class ClientPlayerInteractionManagerMixin
 	}
 
 	@Inject(
-			method = "method_41929",  // lambda method in interactItem
+			//#if MC >= 26.1
+			//$$ method = "lambda$useItem$0",
+			//#else
+			method = "method_41929",  // lambda method in useItem
+			//#endif
 			at = @At("HEAD"),
 			cancellable = true
 	)
@@ -146,7 +154,11 @@ public abstract class ClientPlayerInteractionManagerMixin
 	}
 
 	@ModifyExpressionValue(
-			method = "method_41929",  // lambda method in interactItem
+			//#if MC >= 26.1
+			//$$ method = "lambda$useItem$0",
+			//#else
+			method = "method_41929",  // lambda method in useItem
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12103

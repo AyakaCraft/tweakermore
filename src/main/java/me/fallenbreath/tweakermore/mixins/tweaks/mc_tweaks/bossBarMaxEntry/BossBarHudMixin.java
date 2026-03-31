@@ -27,19 +27,21 @@ import net.minecraft.client.gui.components.BossHealthOverlay;
 import net.minecraft.client.gui.components.LerpingBossEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.util.Iterator;
 
 @Mixin(BossHealthOverlay.class)
 public abstract class BossBarHudMixin
 {
-	@ModifyVariable(
+	@ModifyExpressionValue(
+			//#if MC >= 26.1
+			//$$ method = "extractRenderState",
+			//#else
 			method = "render",
+			//#endif
 			at = @At(
-					value = "INVOKE_ASSIGN",
-					target = "Ljava/util/Collection;iterator()Ljava/util/Iterator;",
-					remap = false
+					value = "INVOKE",
+					target = "Ljava/util/Collection;iterator()Ljava/util/Iterator;"
 			)
 	)
 	private Iterator<LerpingBossEvent> tweakerMore_bossBarMaxEntry_checkLimitation(Iterator<LerpingBossEvent> iterator)
@@ -53,7 +55,11 @@ public abstract class BossBarHudMixin
 	}
 
 	@ModifyExpressionValue(
+			//#if MC >= 26.1
+			//$$ method = "extractRenderState",
+			//#else
 			method = "render",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12001

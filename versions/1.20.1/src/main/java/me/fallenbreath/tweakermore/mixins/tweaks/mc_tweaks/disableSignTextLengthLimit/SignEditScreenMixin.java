@@ -96,7 +96,11 @@ public abstract class SignEditScreenMixin extends Screen
 	}
 
 	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "extractSignText",
+			//#else
 			method = "renderSignText",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12106
@@ -108,7 +112,8 @@ public abstract class SignEditScreenMixin extends Screen
 			)
 	)
 	private void drawLineOverflowHint(
-			GuiGraphics context, CallbackInfo ci,
+			CallbackInfo ci,
+			@Local(argsOnly = true) GuiGraphics context,
 			@Local(ordinal = 5) int lineIdx,
 			@Local(ordinal = 6) int xStart
 	)

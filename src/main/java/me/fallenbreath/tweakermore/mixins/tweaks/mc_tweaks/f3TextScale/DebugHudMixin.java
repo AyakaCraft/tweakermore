@@ -46,7 +46,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class DebugHudMixin
 {
 	@Inject(
-			//#if MC >= 12000
+			//#if MC >= 26.1
+			//$$ method = "extractLines",
+			//#elseif MC >= 12000
 			//$$ method = "renderLines",
 			//#else
 			method = {"drawGameInformation", "drawSystemInformation"},
@@ -75,7 +77,9 @@ public abstract class DebugHudMixin
 	}
 
 	@ModifyExpressionValue(
-			//#if MC >= 12000
+			//#if MC >= 26.1
+			//$$ method = "extractLines",
+			//#elseif MC >= 12000
 			//$$ method = "renderLines",
 			//#else
 			method = "drawSystemInformation",
@@ -99,7 +103,9 @@ public abstract class DebugHudMixin
 	}
 
 	@Inject(
-			//#if MC >= 12000
+			//#if MC >= 26.1
+			//$$ method = "extractLines",
+			//#elseif MC >= 12000
 			//$$ method = "renderLines",
 			//#else
 			method = {"drawGameInformation", "drawSystemInformation"},

@@ -73,7 +73,11 @@ public abstract class HoverTextRendererClassMixin implements ScaleableHoverTextR
 	}
 
 	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "componentHoverEffect",
+			//#else
 			method = "renderComponentHoverEffect",
+			//#endif
 			at = @At("TAIL")
 	)
 	private void fixHoverTextScale_cleanup(CallbackInfo ci)
@@ -82,7 +86,11 @@ public abstract class HoverTextRendererClassMixin implements ScaleableHoverTextR
 	}
 
 	@ModifyArg(
+			//#if MC >= 26.1
+			//$$ method = "componentHoverEffect",
+			//#else
 			method = "renderComponentHoverEffect",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/lang/Math;max(II)I"
@@ -99,7 +107,9 @@ public abstract class HoverTextRendererClassMixin implements ScaleableHoverTextR
 	}
 
 	@ModifyVariable(
-			//#if MC >= 12103
+			//#if MC >= 26.1
+			//$$ method = "tooltip",
+			//#elseif MC >= 12103
 			//$$ method = "renderTooltipInternal(Lnet/minecraft/client/gui/Font;Ljava/util/List;IILnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipPositioner;Lnet/minecraft/resources/ResourceLocation;)V",
 			//#elseif MC >= 12000
 			//$$ method = "renderTooltipInternal(Lnet/minecraft/client/gui/Font;Ljava/util/List;IILnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipPositioner;)V",

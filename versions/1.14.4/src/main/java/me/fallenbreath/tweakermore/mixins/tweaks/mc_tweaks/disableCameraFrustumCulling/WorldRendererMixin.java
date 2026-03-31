@@ -24,7 +24,9 @@ import net.minecraft.client.renderer.LevelRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 
 /**
- * Only used in mc1.15+
+ * <  mc1.15.2: subproject 1.14.4 (dummy impl)
+ * <= mc1.15.2: subproject 1.15.2 (main project)       <--------
+ * >= mc26.1  : subproject 26.1
  */
 @Mixin(LevelRenderer.class)
 public abstract class WorldRendererMixin

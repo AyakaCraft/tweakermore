@@ -49,10 +49,19 @@ public abstract class ChatScreenMixin
 	private RenderUtils.Scaler hoverScaler$TKM = null;
 
 	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "extractDeferredElements",
+			//#else
 			method = "renderDeferredElements",
+			//#endif
 			at = @At(
 					value = "INVOKE",
+					// FIXME: does this scaler really work in 26.1?
+					//#if MC >= 26.1
+					//$$ target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;componentHoverEffect(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Style;II)V"
+					//#else
 					target = "Lnet/minecraft/client/gui/GuiGraphics;renderComponentHoverEffect(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Style;II)V"
+					//#endif
 			)
 	)
 	private void fixHoverTextScale_doScale(CallbackInfo ci)
@@ -75,10 +84,19 @@ public abstract class ChatScreenMixin
 	}
 
 	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "extractDeferredElements",
+			//#else
 			method = "renderDeferredElements",
+			//#endif
 			at = @At(
 					value = "INVOKE",
+					// FIXME: does this scaler really work in 26.1?
+					//#if MC >= 26.1
+					//$$ target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;componentHoverEffect(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Style;II)V",
+					//#else
 					target = "Lnet/minecraft/client/gui/GuiGraphics;renderComponentHoverEffect(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Style;II)V",
+					//#endif
 					shift = At.Shift.AFTER
 			)
 	)

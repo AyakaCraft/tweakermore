@@ -67,7 +67,9 @@ public abstract class SignBlockEntityRendererMixin
 					//   renderText (MC >= 11903)
 
 					// TODO: update optifine name in mc1.19.3+
-					//#if MC >= 12104
+					//#if MC >= 26.1
+					//$$ "lambda$submitSignText$0",  // vanilla
+					//#elseif MC >= 12104
 					//$$ "method_65819",  // vanilla
 					//#elseif MC >= 11903
 					//$$ "method_45799",  // vanilla

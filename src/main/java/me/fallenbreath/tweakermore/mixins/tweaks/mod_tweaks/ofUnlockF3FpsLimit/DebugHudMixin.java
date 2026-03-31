@@ -45,7 +45,14 @@ public abstract class DebugHudMixin
 	@Shadow(remap = false)
 	private long updateInfoRightTimeMs;
 
-	@Inject(method = "render", at = @At("TAIL"))
+	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "extractRenderState",
+			//#else
+			method = "render",
+			//#endif
+			at = @At("TAIL")
+	)
 	private void cancelOptFpsLimit(CallbackInfo ci)
 	{
 		if (TweakerMoreConfigs.OF_UNLOCK_F3_FPS_LIMIT.getBooleanValue())

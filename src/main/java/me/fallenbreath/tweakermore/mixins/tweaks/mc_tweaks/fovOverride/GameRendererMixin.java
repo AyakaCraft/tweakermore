@@ -21,17 +21,32 @@
 package me.fallenbreath.tweakermore.mixins.tweaks.mc_tweaks.fovOverride;
 
 import me.fallenbreath.tweakermore.config.TweakerMoreConfigs;
-import net.minecraft.client.renderer.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(GameRenderer.class)
+//#if MC >= 26.1
+//$$ import net.minecraft.client.Camera;
+//#else
+import net.minecraft.client.renderer.GameRenderer;
+//#endif
+
+@Mixin(
+		//#if MC >= 26.1
+		//$$ Camera.class
+		//#else
+		GameRenderer.class
+		//#endif
+)
 public abstract class GameRendererMixin
 {
 	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "calculateFov",
+			//#else
 			method = "getFov",
+			//#endif
 			at = @At(
 					value = "FIELD",
 					target = "Lnet/minecraft/client/Minecraft;options:Lnet/minecraft/client/Options;"

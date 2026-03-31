@@ -20,6 +20,9 @@
 
 package me.fallenbreath.tweakermore.mixins.tweaks.features.serverMsptMetricsStatistic;
 
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import me.fallenbreath.tweakermore.impl.features.serverMsptMetricsStatistic.MetricsDataWithRichStatistic;
 import me.fallenbreath.tweakermore.impl.features.serverMsptMetricsStatistic.RichStatisticManager;
 import net.minecraft.client.gui.GuiGraphics;
@@ -28,7 +31,6 @@ import net.minecraft.client.gui.components.debugchart.TpsDebugChart;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
@@ -68,29 +70,29 @@ public abstract class DebugHudMixin
 
 	@Shadow @Final private TpsDebugChart tpsChart;
 
-	@Unique private
-	//#if MC >= 12006
-	//$$ LocalSampleLogger
-	//#else
-	SampleLogger
-	//#endif
-			originMetricsData$TKM = null;
-
-	@Unique private int tickChartX$TKM = 0;
-	@Unique private int tickChartWidth$TKM = 0;
-
 	@ModifyArgs(
-			//#if MC >= 12103
+			//#if MC >= 26.1
+			//$$ method = "extractRenderState",
+			//#elseif MC >= 12103
 			//$$ method = "render",
 			//#else
 			method = "method_51746",  // lambda method in render()
 			//#endif
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 26.1
+					//$$ target = "Lnet/minecraft/client/gui/components/debugchart/TpsDebugChart;extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V"
+					//#else
 					target = "Lnet/minecraft/client/gui/components/debugchart/TpsDebugChart;drawChart(Lnet/minecraft/client/gui/GuiGraphics;II)V"
+					//#endif
 			)
 	)
-	private void serverMsptMetricsStatistic_modify(Args args)
+	private void serverMsptMetricsStatistic_modify(
+			Args args,
+			@Share("originMetricsData") LocalRef<Object> originMetricsData,
+			@Share("tickChartX") LocalIntRef tickChartX,
+			@Share("tickChartWidth") LocalIntRef tickChartWidth
+	)
 	{
 		DebugChartAccessor chart = (DebugChartAccessor)this.tpsChart;
 		//#if MC >= 12006
@@ -107,37 +109,58 @@ public abstract class DebugHudMixin
 		RichStatisticManager manager = ((MetricsDataWithRichStatistic)metricsData).getRichStatisticManager$TKM();
 		if (manager != null)
 		{
-			this.originMetricsData$TKM = metricsData;
-			this.tickChartX$TKM = args.get(1);
-			this.tickChartWidth$TKM = args.get(2);
+			originMetricsData.set(metricsData);
+			tickChartX.set(args.get(1));
+			tickChartWidth.set(args.get(2));
 			chart.setLog(manager.modifyServerMsptMetricsStatistic(metricsData));
 		}
 	}
 
 	@Inject(
-			//#if MC >= 12103
+			//#if MC >= 26.1
+			//$$ method = "extractRenderState",
+			//#elseif MC >= 12103
 			//$$ method = "render",
 			//#else
 			method = "method_51746",  // lambda method in render()
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/gui/components/debugchart/TpsDebugChart;drawChart(Lnet/minecraft/client/gui/GuiGraphics;II)V"
+					//#if MC >= 26.1
+					//$$ target = "Lnet/minecraft/client/gui/components/debugchart/TpsDebugChart;extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V",
+					//#else
+					target = "Lnet/minecraft/client/gui/components/debugchart/TpsDebugChart;drawChart(Lnet/minecraft/client/gui/GuiGraphics;II)V",
+					//#endif
+					shift = At.Shift.AFTER
 			)
 	)
-	private void serverMsptMetricsStatistic_renderExtra(GuiGraphics drawContext, CallbackInfo ci)
+	private void serverMsptMetricsStatistic_renderExtra(
+			GuiGraphics drawContext,
+			CallbackInfo ci,
+			@Share("originMetricsData") LocalRef<Object> originMetricsData,
+			@Share("tickChartX") LocalIntRef tickChartX,
+			@Share("tickChartWidth") LocalIntRef tickChartWidth
+	)
 	{
-		if (this.originMetricsData$TKM != null)
+		if (
+				originMetricsData.get() instanceof
+				//#if MC >= 12006
+				//$$ LocalSampleLogger
+				//#else
+				SampleLogger
+				//#endif
+				omd
+		)
 		{
-			RichStatisticManager manager = ((MetricsDataWithRichStatistic)this.originMetricsData$TKM).getRichStatisticManager$TKM();
+			RichStatisticManager manager = ((MetricsDataWithRichStatistic)omd).getRichStatisticManager$TKM();
 			if (manager != null)
 			{
-				manager.renderExtraOnDebugHud(drawContext, this.tickChartX$TKM, this.tickChartWidth$TKM);
+				manager.renderExtraOnDebugHud(drawContext, tickChartX.get(), tickChartWidth.get());
 			}
 
 			DebugChartAccessor chart = (DebugChartAccessor)this.tpsChart;
-			chart.setLog(this.originMetricsData$TKM);
-			this.originMetricsData$TKM = null;
+			chart.setLog(omd);
+			originMetricsData.set(null);
 		}
 	}
 }

@@ -2,7 +2,7 @@
  * This file is part of the TweakerMore project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2026  Fallen_Breath and contributors
  *
  * TweakerMore is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -22,47 +22,36 @@ package me.fallenbreath.tweakermore.mixins.tweaks.mc_tweaks.disableCameraFrustum
 
 import me.fallenbreath.tweakermore.config.TweakerMoreConfigs;
 import me.fallenbreath.tweakermore.impl.mc_tweaks.disableFrustumChunkCulling.CouldBeAlwaysVisibleFrustum;
+import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.culling.Frustum;
-import net.minecraft.client.renderer.LevelRenderer;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-
-//#if MC >= 1.21.9
-//$$ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-//#else
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-//#endif
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * <  mc1.15.2: subproject 1.14.4 (dummy impl)
- * <= mc1.15.2: subproject 1.15.2 (main project)       <--------
- * >= mc26.1  : subproject 26.1
+ * <= mc1.15.2: subproject 1.15.2 (main project)
+ * >= mc26.1  : subproject 26.1       <--------
  */
-@Mixin(LevelRenderer.class)
+@Mixin(Camera.class)
 public abstract class WorldRendererMixin
 {
-	//#if MC >= 1.21.9
-	//$$ @ModifyExpressionValue(
-	//$$ 		method = "renderLevel",
-	//$$ 		at = @At(
-	//$$ 				value = "INVOKE",
-	//$$ 				target = "Lnet/minecraft/client/renderer/LevelRenderer;prepareCullFrustum(Lorg/joml/Matrix4f;Lorg/joml/Matrix4f;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/client/renderer/culling/Frustum;"
-	//$$ 		)
-	//$$ )
-	//#else
-	@ModifyVariable(
-			method = "renderLevel",
-			at = @At(
-					value = "FIELD",
-					target = "Lnet/minecraft/client/renderer/LevelRenderer;captureFrustum:Z",
-					ordinal = 0
-			)
+	@Shadow
+	private Frustum cullFrustum;
+
+	@Inject(
+			method = "prepareCullFrustum",
+			at = @At("TAIL")
 	)
-	//#endif
-	private Frustum disableCameraFrustumCulling_impl(Frustum frustum)
+	private void disableCameraFrustumCulling_impl(CallbackInfo ci)
 	{
-		boolean alwaysVisible = TweakerMoreConfigs.DISABLE_CAMERA_FRUSTUM_CULLING.getBooleanValue();
-		((CouldBeAlwaysVisibleFrustum)frustum).setAlwaysVisible$TKM(alwaysVisible);
-		return frustum;
+		Frustum frustum = this.cullFrustum;
+		if (frustum instanceof CouldBeAlwaysVisibleFrustum)
+		{
+			boolean alwaysVisible = TweakerMoreConfigs.DISABLE_CAMERA_FRUSTUM_CULLING.getBooleanValue();
+			((CouldBeAlwaysVisibleFrustum)frustum).setAlwaysVisible$TKM(alwaysVisible);
+		}
 	}
 }

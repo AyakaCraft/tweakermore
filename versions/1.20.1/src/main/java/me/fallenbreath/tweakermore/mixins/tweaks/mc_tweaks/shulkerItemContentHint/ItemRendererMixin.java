@@ -40,7 +40,9 @@ public abstract class ItemRendererMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 12106
+					//#if MC >= 26.1
+					//$$ target = "Lnet/minecraft/client/renderer/state/gui/GuiRenderState;addItem(Lnet/minecraft/client/renderer/state/gui/GuiItemRenderState;)V",
+					//#elseif MC >= 12106
 					//$$ target = "Lnet/minecraft/client/gui/render/state/GuiRenderState;submitItem(Lnet/minecraft/client/gui/render/state/GuiItemRenderState;)V",
 					//#else
 					target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V",

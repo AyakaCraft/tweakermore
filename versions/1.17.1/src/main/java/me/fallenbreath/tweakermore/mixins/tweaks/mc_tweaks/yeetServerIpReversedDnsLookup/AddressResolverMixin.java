@@ -36,7 +36,11 @@ import java.net.UnknownHostException;
 public interface AddressResolverMixin
 {
 	@WrapOperation(
+			//#if MC >= 26.1
+			//$$ method = "lambda$static$0",
+			//#else
 			method = "method_36903",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/net/InetAddress;getByName(Ljava/lang/String;)Ljava/net/InetAddress;"

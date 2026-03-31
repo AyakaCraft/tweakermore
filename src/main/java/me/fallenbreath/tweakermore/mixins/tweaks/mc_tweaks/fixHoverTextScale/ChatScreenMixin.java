@@ -42,8 +42,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
 /**
- * mc1.21.10- : subproject 1.15.2 (main project)
- * mc1.21.11+ : subproject 1.21.11        <--------
+ * mc1.21.10- : subproject 1.15.2 (main project)        <--------
+ * mc1.21.11+ : subproject 1.21.11
  */
 @Mixin(ChatScreen.class)
 public abstract class ChatScreenMixin extends Screen
@@ -104,10 +104,16 @@ public abstract class ChatScreenMixin extends Screen
 	}
 
 	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "extractDeferredElements",
+			//#else
 			method = "render",
+			//#endif
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 12000
+					//#if MC >= 26.1
+					//$$ target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;componentHoverEffect(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Style;II)V",
+					//#elseif MC >= 12000
 					//$$ target = "Lnet/minecraft/client/gui/GuiGraphics;renderComponentHoverEffect(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Style;II)V",
 					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/client/gui/screens/ChatScreen;renderComponentHoverEffect(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/network/chat/Style;II)V",

@@ -49,7 +49,11 @@ public abstract class EntityRendererMixin
 		//#endif
 {
 	@Inject(
-			//#if MC >= 11500
+			//#if MC >= 26.1
+			//$$ method = "submitNameDisplay(Lnet/minecraft/client/renderer/entity/state/EntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;I)V",
+			//#elseif MC >= 1.21.10
+			//$$ method = "submitNameTag",
+			//#elseif MC >= 1.15
 			method = "renderNameTag",
 			//#else
 			//$$ method = "renderNameTag(Lnet/minecraft/world/entity/Entity;Ljava/lang/String;DDDI)V",
@@ -57,7 +61,7 @@ public abstract class EntityRendererMixin
 			at = @At("HEAD"),
 			cancellable = true
 	)
-	private void nameTagRenderStrategy(
+	private void nameTagRenderStrategy_impl(
 			CallbackInfo ci,
 			//#if MC >= 12103
 			//$$ @Local(argsOnly = true) S entityState

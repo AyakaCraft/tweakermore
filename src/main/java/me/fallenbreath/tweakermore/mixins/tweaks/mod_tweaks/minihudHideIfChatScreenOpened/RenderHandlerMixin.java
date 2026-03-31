@@ -37,7 +37,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class RenderHandlerMixin
 {
 	@Inject(
-			//#if MC >= 12103
+			//#if MC >= 26.1
+			//$$ method = "onExtractGuiOverlayPost",
+			//#elseif MC >= 12103
 			//$$ method = "onRenderGameOverlayPostAdvanced",
 			//#else
 			method = "onRenderGameOverlayPost",

@@ -46,7 +46,9 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 public abstract class ItemRendererMixin
 {
 	@ModifyExpressionValue(
-			//#if MC >= 12104
+			//#if MC >= 26.1
+			//$$ method = "applyTransform",
+			//#elseif MC >= 12104
 			//$$ method = "render",
 			//#elseif MC >= 12103
 			//$$ method = "renderItemModelRaw",
@@ -60,7 +62,12 @@ public abstract class ItemRendererMixin
 			at = @At(
 					//#if MC >= 12105
 					//$$ value = "FIELD",
+					//$$ //#if MC >= 26.1
+					//$$ //$$ target = "Lnet/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState;itemTransform:Lnet/minecraft/client/resources/model/cuboid/ItemTransform;"
+					//$$ //#else
 					//$$ target = "Lnet/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState;transform:Lnet/minecraft/client/renderer/block/model/ItemTransform;"
+					//$$ //#endif
+					//$$
 					//#else
 
 					value = "INVOKE",

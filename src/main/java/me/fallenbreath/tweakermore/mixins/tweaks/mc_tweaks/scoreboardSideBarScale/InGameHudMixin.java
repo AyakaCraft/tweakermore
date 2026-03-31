@@ -56,7 +56,7 @@ public abstract class InGameHudMixin
 
 	@ModifyVariable(
 			//#if MC >= 12103
-			//$$ method = "displayScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/scores/Objective;)V",  // lambda method as the context.draw() callback in method renderScoreboardSidebar
+			//$$ method = "displayScoreboardSidebar",
 			//#elseif MC >= 12004
 			//$$ method = "method_55440",  // lambda method as the context.draw() callback in method renderScoreboardSidebar
 			//#else
@@ -103,11 +103,7 @@ public abstract class InGameHudMixin
 	}
 
 	@Inject(
-			//#if MC >= 12006
-			//$$ method = "displayScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/scores/Objective;)V",
-			//#else
 			method = "displayScoreboardSidebar",
-			//#endif
 			at = @At("RETURN")
 	)
 	private void tweakerMore_scoreboardSideBarScale_pop(CallbackInfo ci)

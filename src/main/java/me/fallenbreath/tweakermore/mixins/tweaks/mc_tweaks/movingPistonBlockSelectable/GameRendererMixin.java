@@ -23,10 +23,15 @@ package me.fallenbreath.tweakermore.mixins.tweaks.mc_tweaks.movingPistonBlockSel
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import me.fallenbreath.tweakermore.impl.mc_tweaks.movingPistonBlockSelectable.MovingPistonBlockSelectableHelper;
-import net.minecraft.client.renderer.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+
+//#if MC >= 26.1
+//$$ import net.minecraft.client.Minecraft;
+//#else
+import net.minecraft.client.renderer.GameRenderer;
+//#endif
 
 //#if 12006 <= MC && MC < 12111
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -34,7 +39,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
-@Mixin(GameRenderer.class)
+@Mixin(
+		//#if MC >= 26.1
+		//$$ Minecraft.class
+		//#else
+		GameRenderer.class
+		//#endif
+)
 public abstract class GameRendererMixin
 {
 	@Inject(

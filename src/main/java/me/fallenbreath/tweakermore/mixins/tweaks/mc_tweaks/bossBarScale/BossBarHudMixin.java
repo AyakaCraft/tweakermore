@@ -47,7 +47,11 @@ public abstract class BossBarHudMixin
 	private RenderUtils.Scaler scaler = null;
 
 	@ModifyVariable(
+			//#if MC >= 26.1
+			//$$ method = "extractRenderState",
+			//#else
 			method = "render",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/Map;values()Ljava/util/Collection;",
@@ -79,7 +83,11 @@ public abstract class BossBarHudMixin
 	}
 
 	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "extractRenderState",
+			//#else
 			method = "render",
+			//#endif
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",

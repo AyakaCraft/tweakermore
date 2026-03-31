@@ -35,7 +35,14 @@ public abstract class InGameHudMixin
 {
 	@Shadow public float vignetteBrightness;
 
-	@Inject(method = "renderVignette", at = @At(value = "HEAD"))
+	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "extractVignette",
+			//#else
+			method = "renderVignette",
+			//#endif
+			at = @At("HEAD")
+	)
 	private void disableVignetteDarkness_modifyVignetteDarkness(CallbackInfo ci, @Share("pvd") LocalRef<Float> prevVignetteDarkness)
 	{
 		if (TweakerMoreConfigs.DISABLE_VIGNETTE_DARKNESS.getBooleanValue())
@@ -45,7 +52,14 @@ public abstract class InGameHudMixin
 		}
 	}
 
-	@Inject(method = "renderVignette", at = @At(value = "TAIL"))
+	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "extractVignette",
+			//#else
+			method = "renderVignette",
+			//#endif
+			at = @At("TAIL")
+	)
 	private void disableVignetteDarkness_restoreVignetteDarkness(CallbackInfo ci, @Share("pvd") LocalRef<Float> prevVignetteDarkness)
 	{
 		if (prevVignetteDarkness.get() != null)
