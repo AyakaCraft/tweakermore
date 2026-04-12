@@ -28,6 +28,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(KeybindMulti.class)
 public interface KeybindMultiAccessor
 {
-	@Accessor(remap = false)
-	IHotkeyCallback getCallback();
+	@Accessor(value = "callback", remap = false)
+	IHotkeyCallback getCallback$TKM();
 }
